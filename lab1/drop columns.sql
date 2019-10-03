@@ -1,0 +1,1 @@
+ALTER TABLE employee DROP column city, country, street_address
