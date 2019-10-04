@@ -1,4 +1,4 @@
-use users
+use data
 
 create table job_position (
 	salary INT,
