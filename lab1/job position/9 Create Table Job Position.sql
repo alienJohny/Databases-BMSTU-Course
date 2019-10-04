@@ -1008,3 +1008,9 @@ insert into job_position (salary, company_share, missions, work_hours, job_posit
 insert into job_position (salary, company_share, missions, work_hours, job_position, sys_access) values (124718, 0.0027, 0, 53, 'Payment Adjustment Coordinator', 0);
 insert into job_position (salary, company_share, missions, work_hours, job_position, sys_access) values (139946, 0.0905, 0, 41, 'Developer I', 1);
 insert into job_position (salary, company_share, missions, work_hours, job_position, sys_access) values (54808, 0.0715, 1, 39, 'VP Sales', 0);
+
+alter table job_position
+add 
+	id_p int identity(1, 1) not null
+
+go
