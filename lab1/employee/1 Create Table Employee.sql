@@ -1,4 +1,24 @@
-use users
+﻿use data
+
+create table employee (
+	[id] int identity(1, 1) not null,
+	[username] varchar (100) not null,
+	[password] varchar (100) not null,
+	[first_name] varchar (100) not null,
+	[last_name] varchar (100) not null,
+	[email] varchar (100) not null,
+	[phone_number] varchar (100) not null,
+	[gender] varchar (100) not null,
+	[country] varchar (100) not null,
+	[city] varchar (100) not null,
+	[street_address] varchar (150) not null,
+	[insurance_company] varchar (250) not null,
+	[department] varchar (100) not null,
+	[university] varchar (250) not null,
+	[credit_card_type] varchar (50) not null,
+	[credit_card_number] bigint not null,
+	[shirt_size] varchar (50) not null
+)
 
 go
 
@@ -1004,3 +1024,7 @@ insert into employee
 		('mbycraftrp', 'gRVbzEw1b', 'Morna', 'Bycraft', 'mbycraftrp@yolasite.com', '86(467)347-5387', 'Female', 'China', 'Dalun', '163 Judy Place', 'Select Brand', 'Engineering', 'Xiamen University', 'mastercard', 5504937220932464, 'XS'),
 		('sfennellyrq', 'xmxnu7', 'Shani', 'Fennelly', 'sfennellyrq@moonfruit.com', '86(545)268-2426', 'Female', 'China', 'Tiantai Chengguanzhen', '893 Meadow Vale Drive', 'Dr. Reddys Laboratories Limited', 'Legal', 'Civil Aviation University of China', 'diners-club-international', 36029671140710, 'S'),
 		('rstanierrr', 'YHiikJY', 'Rana', 'Stanier', 'rstanierrr@google.nl', '86(280)563-0751', 'Female', 'China', 'Tielu', '34472 Badeau Place', 'Aphena Pharma Solutions - Tennessee, LLC', 'Legal', 'Hubei University', 'visa', 4628300757233851, 'XS')
+go
+
+
+ALTER TABLE employee DROP column city, country, street_address

@@ -1,4 +1,4 @@
-use users
+use data
 
 create table companies (
 	company VARCHAR(50),
