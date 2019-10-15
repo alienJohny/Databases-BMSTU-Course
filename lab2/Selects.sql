@@ -79,5 +79,40 @@ order by issue_date desc
 */
 
 /*
-	7. 
+	7. Сгруппировать и отсортировать компании
+	под количеству работников по убыванию
+	и сохранить в новую временную таблицу
+*/
+/*
+select c.company, count(*) as n_empl
+into #companies_and_employees
+from employee e
+inner join companies c
+on e.company = c.company
+group by c.company
+order by n_empl desc
+
+go
+
+drop table #companies_and_employees
+
+go
+*/
+
+/*
+	8. Найти города, в которых средняя зарплата больше 100,000
+	используя group by и having
+	Отсортировать по средней зп
+*/
+/*
+select city, avg(salary) as sal from (
+	select c.company, c.city, e.job_position from employee e
+	inner join companies c
+	on c.company = e.company
+) as nt
+inner join job_position jp
+on nt.job_position = jp.job_position
+group by city
+having AVG(salary) > 100000
+order by sal desc
 */
