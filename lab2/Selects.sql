@@ -57,7 +57,7 @@ select p.issue_date,
        last_name,
        phone_number,
        case 
-	       when year(GETDATE()) - year(issue_date) > 18
+           when year(GETDATE()) - year(issue_date) > 18
                then 'Adult'
            else 'Child'
        end as 'Adult/Child'
