@@ -102,5 +102,14 @@ having AVG(salary) > 100000
 order by sal desc
 
 /*
-	9. tbc...
+	9. Используя оконные функции узнать сумму рабочих часов работников
+	по каждой профессии и количество опрошенных
 */
+select e.job_position,
+	   jp.work_hours,
+	   sum(jp.work_hours) over(partition by e.job_position) as SumHrOnPosition,
+	   count(jp.work_hours) over(partition by e.job_position) as NumResponses
+from employee e
+inner join job_position jp
+on e.job_position = jp.job_position
+order by NumResponses desc
