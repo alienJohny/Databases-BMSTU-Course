@@ -1,4 +1,8 @@
-﻿/*
+﻿use data
+
+go
+
+/*
     1. Узнать 3 города с самым большим числом работников
 */
 select top 3 city, count(*) as cnt from (
@@ -17,14 +21,14 @@ order by cnt desc
 select e.first_name, e.last_name, e.phone_number, p.issue_date
 from employee e
 inner join passports as p on e.PASSPORT_FK = p.id
-where issue_date > '1980-01-01' -- between '1980-01-01' and (select max(issue_date) from passports)
+where issue_date between '1980-01-01' and (select max(issue_date) from passports)
 order by issue_date
 
 /*
     3. Найти работников, с почтой на Яндексе
 */
-select first_name, last_name, phone_number from employee
-where email like '%yandex%'
+select first_name, last_name, phone_number, email from employee
+where email like '%yandex.ru%'
 
 /*
     4. Получить контакты работников из Китая,
@@ -79,6 +83,8 @@ on e.company = c.company
 group by c.company
 order by n_empl desc
 
+select * from #companies_and_employees
+
 go
 
 drop table #companies_and_employees
@@ -105,7 +111,7 @@ order by sal desc
     9. Используя оконные функции узнать сумму рабочих часов работников
     по каждой профессии и количество опрошенных
 */
-select e.job_position,
+select distinct e.job_position,
        jp.work_hours,
        sum(jp.work_hours) over(partition by e.job_position) as SumHrOnPosition,
        count(jp.work_hours) over(partition by e.job_position) as NumResponses
@@ -113,3 +119,4 @@ from employee e
 inner join job_position jp
 on e.job_position = jp.job_position
 order by NumResponses desc
+
