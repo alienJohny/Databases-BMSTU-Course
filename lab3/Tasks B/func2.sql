@@ -1,26 +1,18 @@
-use data
+create procedure dbo.selectCompany
+as
+    with CTE (company)
+    AS
+    (
+        SELECT company
+        FROM employee 
+        WHERE employee.gender = 'Male'
 
-go
+        UNION ALL
 
-create procedure Factorial (
-    @n integer,
-    @ReturnValue integer output
-) as
-begin
-    declare @in integer
-    declare @out integer
-    
-    if @n != 1
-    begin
-        select @in = @n - 1
-        exec Factorial @in, @out output
-    select @ReturnValue = @n * @Out
-    end
-    else
-    begin
-        select @ReturnValue = 1
-    end
-return
-end
-
-go
+        SELECT C.company
+        FROM companies C JOIN CTE ON C.company = CTE.company
+        where C.sector = 'IT'
+    )
+    SELECT *
+    FROM CTE
+GO

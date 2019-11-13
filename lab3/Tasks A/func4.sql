@@ -3,29 +3,30 @@ use data
 go
 
 /*
-    A.4 Recursive factorial function
+    A.4 Recursive CTE factorial function
 */
-create function dbo.fact (
-    @iNumber int
-)
-returns int
-    with returns null on null input
+create function dbo.ret ()
+returns varchar
 as
 begin
-    declare @i int
+    declare @n varchar;
 
-    if (@iNumber = 0)
-        set @i = 0
+    with CTE (company)
+    AS
+    (
+        SELECT company
+        FROM employee 
+        WHERE employee.gender = 'Male'
 
-    if (@iNumber < 0)
-        set @i = -1
+        UNION ALL
 
-    if (@iNumber > 0)
-        if @iNumber <= 1
-            set @i = 1
-        else
-            set @i = @iNumber * dbo.fact(@iNumber - 1)
+        SELECT C.company
+        FROM companies C JOIN CTE ON C.company = CTE.company
+        where C.sector = 'IT'
+    )
+    select @n = (select top 1 company from CTE)
+    from CTE
    
-    return (@i)
+    return (@n)
 end
 ;
