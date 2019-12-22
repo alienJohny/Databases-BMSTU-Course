@@ -1,0 +1,1 @@
+csc /t:library /out:4.dll 4.cs
