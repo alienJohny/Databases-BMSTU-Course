@@ -33,14 +33,12 @@ insert into staff
 
 insert into staff_lack
     values
-        (1, '2020-01-20', 1),
-        (1, '2020-01-21', 1),
-        (1, '2020-01-22', 1),
-        (1, '2020-01-23', 1),
-        (1, '2020-01-25', 3),
-        (1, '2020-01-26', 3),
-        (2, '2020-01-22', 2),
-        (2, '2020-01-23', 2)
+        (1, '2020-02-20', 1),
+        (1, '2020-02-21', 1),
+        (1, '2020-02-22', 1),
+        (1, '2020-02-23', 1),
+        (1, '2020-02-25', 3),
+        (1, '2020-02-26', 3)
 
 insert into lack_type
     values
@@ -60,36 +58,21 @@ on sl.id_staff = s.id
 join lack_type lt
 on sl.type = lt.id
 
-/*
-select row_number() over () as id, *
-from (
-    select distinct *
-    from (select fio,
-                 min(date) over (partition by id_staff, staff_lack.type),
-                 max(date) over (partition by id_staff, staff_lack.type),
-                 lack_type.type
-            from staff_lack
-            join staff on staff_lack.id = staff.id
-            join lack_type on staff_lack.type = lack_type.id
-    ) as almready
-) as ready;
-*/
 
-/*
-select *
-from staff_lack
-join staff on staff_lack.id_staff = staff.id
-join lack_type on staff_lack.type = lack_type.id
-*/
-
-select distinct * from (
+select * from (
     select fio,
            lack_type.type,
-           min(date) over (partition by id_staff, lack_type.type) as 'start',
-           max(date) over (partition by id_staff, lack_type.type) as 'end'
+           min(date) over (partition by fio, lack_type.type) as 'start',
+           max(date) over (partition by fio, lack_type.type) as 'end'
     from staff_lack
     join staff on staff_lack.id_staff = staff.id
     join lack_type on staff_lack.type = lack_type.id
 ) as tmp1
 
-
+select fio,
+       lack_type.type,
+       date,
+       rank() over (partition by fio order by date) 
+    from staff_lack
+    join staff on staff_lack.id_staff = staff.id
+    join lack_type on staff_lack.type = lack_type.id

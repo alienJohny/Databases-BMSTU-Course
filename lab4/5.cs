@@ -22,11 +22,11 @@ public partial class Triggers
             command = new SqlCommand(@"SELECT * FROM INSERTED", connection);  
             reader = command.ExecuteReader();  
             reader.Read();  
-            value = (int)reader[0];  
+            value = (int)reader[0];
             reader.Close();  
   
             // Rollback the transaction if a value of 1 was inserted.  
-            if (1 == value)  
+            if (1 == value)
             {  
                 try  
                 {  
