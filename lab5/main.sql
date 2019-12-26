@@ -12,9 +12,14 @@ for xml auto
 /*
 The RAW mode generates a single <row> element per row in the rowset that is returned by the SELECT statement.
 */
-select * from
-companies
-for xml raw
+select c.company, e.first_name from
+companies c
+join employee e
+on c.company = e.company
+for xml auto
+
+
+
 
 -- XML EXPLICIT
 /*
